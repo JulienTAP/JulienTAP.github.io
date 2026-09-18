@@ -27,7 +27,7 @@ Do not commit code by yourself, user should handle commits and PRs alone.
 
 ## Theme and dark mode
 
-Dark mode is **CSS-only**, driven by `@media (prefers-color-scheme: dark)` in `src/index.css`. There is no JS toggle. Do not add a `.dark` class or a theme provider — see [ADR-0001](docs/adr/0001-auto-dark-mode.md). Any `dark:` utility class in Tailwind follows the OS setting automatically.
+Dark mode supports three states: light, dark, or browser preference (the default). A `ThemeSwitch` in the header persists the choice to `localStorage`; an anti-FOUC script in `index.html` applies it before React mounts. The CSS uses `@media (prefers-color-scheme: dark) :root:not(.light)` for browser-preference mode, and `.dark` / `.light` classes for forced overrides. See [ADR-0002](docs/adr/0002-three-state-theme-switch.md) (supersedes [ADR-0001](docs/adr/0001-auto-dark-mode.md)).
 
 ## Deploy
 

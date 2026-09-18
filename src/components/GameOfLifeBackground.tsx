@@ -1,13 +1,4 @@
-import { useGameOfLife, type PatternName } from '@/hooks/useGameOfLife'
-
-const PATTERN_POOL: ReadonlyArray<PatternName> = [
-  'pulsar',
-  'glider',
-  'blinker',
-  'toad',
-  'beacon',
-  'gosperGliderGun',
-]
+import { useGameOfLife } from '@/hooks/useGameOfLife'
 
 export function GameOfLifeBackground() {
   const { canvasRef } = useGameOfLife({
@@ -15,9 +6,7 @@ export function GameOfLifeBackground() {
     tickIntervalMs: 167,
     colorVar: '--muted-foreground',
     alpha: 0.4,
-    patternPool: PATTERN_POOL,
-    patternCount: 40,
-    patternPadding: 4,
+    soupDensity: 0.2,
   })
 
   return (

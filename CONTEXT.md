@@ -48,4 +48,5 @@ docs/adr/           # Architecture Decision Records
 
 ## Decisions recorded
 
-- [ADR-0001: Auto dark mode via CSS media query](docs/adr/0001-auto-dark-mode.md)
+- [ADR-0001: Auto dark mode via CSS media query](docs/adr/0001-auto-dark-mode.md) (superseded)
+- [ADR-0002: Three-state theme switch](docs/adr/0002-three-state-theme-switch.md)

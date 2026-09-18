@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import {
   createGameOfLife,
-  seedRandomPatterns,
   type GameOfLifeEngine,
   type PatternName,
 } from '@/lib/game-of-life'
@@ -13,9 +12,7 @@ export interface UseGameOfLifeOptions {
   tickIntervalMs?: number
   colorVar?: string
   alpha?: number
-  patternPool?: ReadonlyArray<PatternName>
-  patternCount?: number
-  patternPadding?: number
+  soupDensity?: number
 }
 
 export interface UseGameOfLifeResult {
@@ -26,8 +23,7 @@ const DEFAULT_CELL_SIZE = 12
 const DEFAULT_TICK_INTERVAL_MS = 167
 const DEFAULT_COLOR_VAR = '--muted-foreground'
 const DEFAULT_ALPHA = 0.22
-const DEFAULT_PATTERN_COUNT = 12
-const DEFAULT_PATTERN_PADDING = 4
+const DEFAULT_SOUP_DENSITY = 0.18
 const MAX_DPR = 2
 
 export function useGameOfLife(
@@ -40,9 +36,7 @@ export function useGameOfLife(
     tickIntervalMs = DEFAULT_TICK_INTERVAL_MS,
     colorVar = DEFAULT_COLOR_VAR,
     alpha = DEFAULT_ALPHA,
-    patternPool = [],
-    patternCount = DEFAULT_PATTERN_COUNT,
-    patternPadding = DEFAULT_PATTERN_PADDING,
+    soupDensity = DEFAULT_SOUP_DENSITY,
   } = opts
 
   useEffect(() => {
@@ -86,18 +80,13 @@ export function useGameOfLife(
       ctx.imageSmoothingEnabled = false
     }
 
-    const seedPatterns = (): void => {
-      if (patternPool.length === 0) return
-      seedRandomPatterns(engine, patternPool, patternCount, patternPadding)
-    }
-
     const init = (): void => {
       const { cols, rows } = computeDims()
       engine = createGameOfLife({ cols, rows, toroidal: true })
       renderedState = new Uint8Array(cols * rows)
       setupCanvas()
       fillColor = readFillColor()
-      seedPatterns()
+      engine.reseed(soupDensity)
       needsFullRedraw = true
     }
 
@@ -159,7 +148,7 @@ export function useGameOfLife(
       engine.resize(cols, rows)
       renderedState = new Uint8Array(cols * rows)
       setupCanvas()
-      seedPatterns()
+      engine.reseed(soupDensity)
       needsFullRedraw = true
     }
 
@@ -180,6 +169,12 @@ export function useGameOfLife(
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     mediaQuery.addEventListener('change', onThemeChange)
 
+    const themeObserver = new MutationObserver(onThemeChange)
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
     init()
     rafId = requestAnimationFrame(loop)
 
@@ -188,16 +183,9 @@ export function useGameOfLife(
       if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
       resizeObserver.disconnect()
       mediaQuery.removeEventListener('change', onThemeChange)
+      themeObserver.disconnect()
     }
-  }, [
-    cellSize,
-    tickIntervalMs,
-    colorVar,
-    alpha,
-    patternPool,
-    patternCount,
-    patternPadding,
-  ])
+  }, [cellSize, tickIntervalMs, colorVar, alpha, soupDensity])
 
   return { canvasRef }
 }

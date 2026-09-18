@@ -11,7 +11,8 @@
 - Tech Stack (Icons + text)
 - Projects (with links to GitHub repos and live demos)
 - Biography (Short)
-- "How I work"
+- "How I work"/"Why me"
+- "I use arch btw"
 
 # We'll see
 
@@ -25,6 +26,16 @@
 Single page, no routing.
 Header with a logo and a menu (with links to sections) (Always visible on top of the page, even when scrolling down).
 Footer with social media links, contacts, and a copyright notice.
+
+## Header
+
+- Routing :
+  - About
+  - Skills
+  - Work
+  - Education
+  - Experience
+  - Contact
 
 Background :
 
