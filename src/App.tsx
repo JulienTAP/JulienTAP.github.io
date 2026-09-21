@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { GameOfLifeBackground } from '@/components/GameOfLifeBackground'
 import { Header, type NavItem } from '@/components/Header'
 import { About } from '@/sections/About'
@@ -17,11 +18,31 @@ const NAV_ITEMS: ReadonlyArray<NavItem> = [
 ]
 
 function App() {
+  const bgRef = useRef<HTMLDivElement>(null)
+
+  const handleScroll = (e: React.UIEvent<HTMLElement>): void => {
+    const el = e.currentTarget
+    const sectionHeight = el.clientHeight
+    const progress = el.scrollTop / sectionHeight
+    const opacity = (1 - progress) ** 2
+    if (bgRef.current !== null) {
+      bgRef.current.style.opacity = String(opacity)
+    }
+  }
+
   return (
     <>
-      <GameOfLifeBackground />
+      <div
+        ref={bgRef}
+        className="pointer-events-none fixed inset-0 -z-10"
+      >
+        <GameOfLifeBackground />
+      </div>
       <Header items={NAV_ITEMS} />
-      <main className="no-scrollbar h-svh snap-y snap-mandatory overflow-y-scroll">
+      <main
+        onScroll={handleScroll}
+        className="no-scrollbar h-svh snap-y snap-mandatory overflow-y-scroll"
+      >
         <About />
         <Skills />
         <Work />
