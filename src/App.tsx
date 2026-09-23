@@ -24,7 +24,7 @@ function App() {
     const el = e.currentTarget
     const sectionHeight = el.clientHeight
     const progress = el.scrollTop / sectionHeight
-    const opacity = (1 - progress) ** 2
+    const opacity = Math.max(0, 1 - progress) ** 2
     if (bgRef.current !== null) {
       bgRef.current.style.opacity = String(opacity)
     }
@@ -32,10 +32,7 @@ function App() {
 
   return (
     <>
-      <div
-        ref={bgRef}
-        className="pointer-events-none fixed inset-0 -z-10"
-      >
+      <div ref={bgRef} className="pointer-events-none fixed inset-0 -z-10">
         <GameOfLifeBackground />
       </div>
       <Header items={NAV_ITEMS} />

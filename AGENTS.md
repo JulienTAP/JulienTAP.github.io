@@ -22,8 +22,9 @@ Do not commit code by yourself, user should handle commits and PRs alone.
 - **No comments in code** unless asked for.
 - **Prettier formats everything** — the `.prettierignore` excludes `.agents/`, `.opencode/`, `node_modules`, `dist`, `public`, and `pnpm-lock.yaml`.
 - Use the `@/*` alias for imports inside `src/` (e.g. `import { cn } from '@/lib/utils'`), not relative paths.
-- Components go in `src/components/` (or `src/components/ui/` for shadcn primitives added via the CLI).
-- shadcn/ui is configured in `components.json` (New York style, lucide icons). Add components with `pnpm dlx shadcn@latest add <name>`.
+- Components go in `src/components/` (or `src/components/ui/` for shadcn primitives added via the CLI); sections in `src/sections/`.
+- shadcn/ui is configured in `components.json` (New York style, lucide icons). Add components with `pnpm dlx shadcn@latest add <name>`. If the CLI writes `from "cn"` imports, change them to `@/lib/utils`.
+- Brand icons (GitHub, LinkedIn, …) come from `react-icons` (`react-icons/fa`) — lucide v1+ ships no brand icons.
 
 ## Theme and dark mode
 
