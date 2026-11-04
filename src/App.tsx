@@ -1,5 +1,8 @@
-import { GameOfLifeBackground } from '@/components/GameOfLifeBackground'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
+import { PortfolioReadyContext } from '@/context/portfolio-ready'
 import { Header, type NavItem } from '@/components/Header'
+import { Intro } from '@/sections/Intro'
 import { About } from '@/sections/About'
 import { Skills } from '@/sections/Skills'
 import { Work } from '@/sections/Work'
@@ -17,11 +20,19 @@ const NAV_ITEMS: ReadonlyArray<NavItem> = [
 ]
 
 function App() {
+  const [introDone, setIntroDone] = useState(false)
+
   return (
-    <>
-      <GameOfLifeBackground />
-      <Header items={NAV_ITEMS} />
-      <main className="no-scrollbar h-svh snap-y snap-mandatory overflow-y-scroll">
+    <PortfolioReadyContext value={introDone}>
+      {!introDone && <Intro onFinish={() => setIntroDone(true)} />}
+      {introDone && <Header items={NAV_ITEMS} />}
+      <main
+        inert={!introDone}
+        className={cn(
+          'no-scrollbar h-svh snap-y snap-mandatory',
+          introDone ? 'overflow-y-scroll' : 'overflow-hidden',
+        )}
+      >
         <About />
         <Skills />
         <Work />
@@ -29,7 +40,7 @@ function App() {
         <Experience />
         <Contact />
       </main>
-    </>
+    </PortfolioReadyContext>
   )
 }
 
