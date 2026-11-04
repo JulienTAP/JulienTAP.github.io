@@ -1,15 +1,9 @@
-import { ArrowDown, HelpCircle, MapPin } from 'lucide-react'
+import { ArrowDown, MapPin } from 'lucide-react'
 import { Section } from '@/components/Section'
 import { RotatingTitle } from '@/components/RotatingTitle'
 import { Reveal } from '@/components/Reveal'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { GameOfLifePatternBackground } from '@/components/GameOfLifePatternBackground'
+import { usePortfolioReady } from '@/context/portfolio-ready'
 
 const TITLES = [
   'Full-stack developer',
@@ -19,6 +13,8 @@ const TITLES = [
 ]
 
 export function About() {
+  const ready = usePortfolioReady()
+
   const scrollToNext = (): void => {
     const el = document.getElementById('skills')
     if (el !== null) {
@@ -29,48 +25,19 @@ export function About() {
   return (
     <Section
       id="about"
-      className="relative items-start justify-start px-6 pt-24 pb-12 sm:px-12 sm:pt-28"
+      className="relative isolate items-start justify-start px-6 pt-24 pb-12 sm:px-12 sm:pt-28"
     >
+      <GameOfLifePatternBackground />
       <div className="bg-background/30 pointer-events-none absolute inset-0 -z-[5]" />
-
-      <div className="absolute top-24 right-6 z-10 sm:top-28 sm:right-12">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                aria-label="About this background"
-                className="bg-background/40 border-border/40 rounded-full backdrop-blur-md"
-              >
-                <HelpCircle className="size-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="left" className="max-w-64 text-start">
-              This background is a live simulation of Conway&apos;s Game of
-              Life.
-              <br />
-              <br />
-              Cells live and die by a few simple rules, and this chaos is what
-              inspired this page. From simple rules emerges complexity.
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
 
       <div className="w-full max-w-5xl px-2 sm:px-4">
         <Reveal>
-          <div className="bg-background/40 border-border/40 w-fit rounded-2xl border p-6 backdrop-blur-md">
-            <Badge variant="secondary" className="gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500" />
-              #OpenToWork
-            </Badge>
-
-            <h1 className="text-foreground mt-3 text-5xl font-bold tracking-tight text-shadow-sm sm:text-7xl">
+          <div className="w-fit p-6">
+            <h1 className="text-foreground text-5xl font-bold tracking-tight text-shadow-sm sm:text-7xl">
               Julien TAP
             </h1>
 
-            <RotatingTitle titles={TITLES} intervalMs={3000} />
+            {ready && <RotatingTitle titles={TITLES} intervalMs={3000} />}
 
             <div className="text-muted-foreground mt-6 flex items-center gap-2 text-sm">
               <MapPin className="size-4" />
@@ -86,19 +53,14 @@ export function About() {
 
         <div className="absolute right-6 bottom-12 sm:right-12">
           <Reveal delay={400}>
-            <div className="bg-background/40 border-border/40 w-full max-w-sm rounded-2xl border p-6 backdrop-blur-md">
-              <p className="text-muted-foreground text-sm">
-                That mess behind you? <br />
-                That&apos;s what unstructured problems look like.
-              </p>
-              <p className="text-foreground mt-2 text-sm font-medium">
-                I can help clean that up.
-              </p>
-              <Button size="lg" className="mt-4 w-full" onClick={scrollToNext}>
-                Let&apos;s clean that
-                <ArrowDown className="size-4" />
-              </Button>
-            </div>
+            <button
+              type="button"
+              onClick={scrollToNext}
+              className="bg-background/40 border-border/40 text-muted-foreground group hover:border-border/70 hover:text-foreground flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm backdrop-blur-md transition-colors"
+            >
+              Scroll to explore
+              <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5 motion-reduce:transition-none" />
+            </button>
           </Reveal>
         </div>
       </div>

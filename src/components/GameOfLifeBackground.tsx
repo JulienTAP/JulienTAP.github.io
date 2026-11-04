@@ -13,7 +13,7 @@ export function GameOfLifeBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none h-svh w-svw"
+      className="pointer-events-none absolute inset-0 size-full"
     />
   )
 }

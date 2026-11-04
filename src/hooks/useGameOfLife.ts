@@ -4,6 +4,7 @@ import {
   type GameOfLifeEngine,
   type PatternName,
 } from '@/lib/game-of-life'
+import { observeThemeColor, readFillColor } from '@/lib/theme-observer'
 
 export type { PatternName }
 
@@ -53,12 +54,6 @@ export function useGameOfLife(
     let needsFullRedraw = true
     let renderedState = new Uint8Array(0)
 
-    const readFillColor = (): string => {
-      return getComputedStyle(document.documentElement)
-        .getPropertyValue(colorVar)
-        .trim()
-    }
-
     const computeDims = (): { cols: number; rows: number } => {
       const w = window.innerWidth
       const h = window.innerHeight
@@ -85,7 +80,7 @@ export function useGameOfLife(
       engine = createGameOfLife({ cols, rows, toroidal: true })
       renderedState = new Uint8Array(cols * rows)
       setupCanvas()
-      fillColor = readFillColor()
+      fillColor = readFillColor(colorVar)
       engine.reseed(soupDensity)
       needsFullRedraw = true
     }
@@ -159,21 +154,14 @@ export function useGameOfLife(
     }
 
     const onThemeChange = (): void => {
-      fillColor = readFillColor()
+      fillColor = readFillColor(colorVar)
       needsFullRedraw = true
     }
 
+    const unobserveTheme = observeThemeColor(onThemeChange)
+
     const resizeObserver = new ResizeObserver(onResizeDebounced)
     resizeObserver.observe(document.documentElement)
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    mediaQuery.addEventListener('change', onThemeChange)
-
-    const themeObserver = new MutationObserver(onThemeChange)
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
 
     init()
     rafId = requestAnimationFrame(loop)
@@ -182,8 +170,7 @@ export function useGameOfLife(
       if (rafId !== null) cancelAnimationFrame(rafId)
       if (resizeRaf !== null) cancelAnimationFrame(resizeRaf)
       resizeObserver.disconnect()
-      mediaQuery.removeEventListener('change', onThemeChange)
-      themeObserver.disconnect()
+      unobserveTheme()
     }
   }, [cellSize, tickIntervalMs, colorVar, alpha, soupDensity])
 

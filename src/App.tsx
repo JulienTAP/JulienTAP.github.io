@@ -1,6 +1,8 @@
-import { useRef } from 'react'
-import { GameOfLifeBackground } from '@/components/GameOfLifeBackground'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
+import { PortfolioReadyContext } from '@/context/portfolio-ready'
 import { Header, type NavItem } from '@/components/Header'
+import { Intro } from '@/sections/Intro'
 import { About } from '@/sections/About'
 import { Skills } from '@/sections/Skills'
 import { Work } from '@/sections/Work'
@@ -18,27 +20,18 @@ const NAV_ITEMS: ReadonlyArray<NavItem> = [
 ]
 
 function App() {
-  const bgRef = useRef<HTMLDivElement>(null)
-
-  const handleScroll = (e: React.UIEvent<HTMLElement>): void => {
-    const el = e.currentTarget
-    const sectionHeight = el.clientHeight
-    const progress = el.scrollTop / sectionHeight
-    const opacity = Math.max(0, 1 - progress) ** 2
-    if (bgRef.current !== null) {
-      bgRef.current.style.opacity = String(opacity)
-    }
-  }
+  const [introDone, setIntroDone] = useState(false)
 
   return (
-    <>
-      <div ref={bgRef} className="pointer-events-none fixed inset-0 -z-10">
-        <GameOfLifeBackground />
-      </div>
-      <Header items={NAV_ITEMS} />
+    <PortfolioReadyContext value={introDone}>
+      {!introDone && <Intro onFinish={() => setIntroDone(true)} />}
+      {introDone && <Header items={NAV_ITEMS} />}
       <main
-        onScroll={handleScroll}
-        className="no-scrollbar h-svh snap-y snap-mandatory overflow-y-scroll"
+        inert={!introDone}
+        className={cn(
+          'no-scrollbar h-svh snap-y snap-mandatory',
+          introDone ? 'overflow-y-scroll' : 'overflow-hidden',
+        )}
       >
         <About />
         <Skills />
@@ -47,7 +40,7 @@ function App() {
         <Experience />
         <Contact />
       </main>
-    </>
+    </PortfolioReadyContext>
   )
 }
 

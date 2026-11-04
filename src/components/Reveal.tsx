@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { usePortfolioReady } from '@/context/portfolio-ready'
 
 interface RevealProps {
   readonly children: ReactNode
@@ -10,8 +11,11 @@ interface RevealProps {
 export function Reveal({ children, delay = 0, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const ready = usePortfolioReady()
 
   useEffect(() => {
+    if (!ready) return
+
     const el = ref.current
     if (el === null) {
       setIsVisible(true)
@@ -32,7 +36,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [ready])
 
   return (
     <div

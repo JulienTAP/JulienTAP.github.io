@@ -59,7 +59,7 @@ export function Header({ items }: HeaderProps) {
 
   return (
     <>
-      <header className="border-border/40 bg-background/70 fixed inset-x-0 top-0 z-50 hidden border-b backdrop-blur-md sm:block">
+      <header className="border-border/40 bg-background/70 animate-in fade-in-0 slide-in-from-top-2 fill-mode-both fixed inset-x-0 top-0 z-50 hidden border-b backdrop-blur-md duration-700 sm:block">
         <div className="relative mx-auto flex max-w-5xl items-center justify-center px-4 py-3">
           <nav className="flex items-center gap-1">
             {items.map((item) => (
@@ -93,7 +93,7 @@ export function Header({ items }: HeaderProps) {
         type="button"
         onClick={() => setMobileOpen(true)}
         aria-label="Open menu"
-        className="text-foreground bg-background/70 hover:bg-muted/60 fixed top-3 right-4 z-50 flex h-9 w-9 items-center justify-center rounded-md backdrop-blur-md transition-colors sm:hidden"
+        className="text-foreground bg-background/70 animate-in fade-in-0 slide-in-from-top-2 hover:bg-muted/60 fill-mode-both fixed top-3 right-4 z-50 flex h-9 w-9 items-center justify-center rounded-md backdrop-blur-md transition-colors duration-700 sm:hidden"
       >
         <Menu className="h-5 w-5" />
       </button>

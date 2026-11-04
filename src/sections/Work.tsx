@@ -1,8 +1,10 @@
 import { Section } from '@/components/Section'
+import { GameOfLifePatternBackground } from '@/components/GameOfLifePatternBackground'
 
 export function Work() {
   return (
-    <Section id="work">
+    <Section id="work" className="relative isolate">
+      <GameOfLifePatternBackground />
       <h2 className="text-foreground text-3xl font-bold tracking-tight">
         Work
       </h2>
