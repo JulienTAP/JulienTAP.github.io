@@ -1,14 +1,21 @@
 import { Section } from '@/components/Section'
+import { Reveal } from '@/components/Reveal'
 import { GameOfLifePatternBackground } from '@/components/GameOfLifePatternBackground'
 
 export function Education() {
   return (
-    <Section id="education" className="relative isolate">
+    <Section
+      id="education"
+      className="relative isolate items-start justify-start px-6 pt-20 pb-14 sm:px-12 sm:pb-16"
+    >
       <GameOfLifePatternBackground />
-      <h2 className="text-foreground font-display text-3xl font-bold tracking-tight">
-        Education
-      </h2>
-      <p className="text-muted-foreground mt-2">Coming soon</p>
+      <div className="w-full max-w-5xl px-2 sm:px-4">
+        <Reveal>
+          <h2 className="text-foreground font-display p-3 text-4xl font-bold tracking-tight text-shadow-sm sm:p-4 sm:text-7xl lg:text-8xl">
+            Education
+          </h2>
+        </Reveal>
+      </div>
     </Section>
   )
 }
