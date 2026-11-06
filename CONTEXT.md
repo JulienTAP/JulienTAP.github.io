@@ -46,7 +46,7 @@ A full-viewport routing unit (`src/components/Section.tsx`: `h-svh snap-start sn
 - **Game of Life soup** (`src/lib/game-of-life.ts` + `src/hooks/useGameOfLife.ts` + `src/components/GameOfLifeBackground.tsx`): toroidal `Uint8Array` double-buffer engine, soup-seeded, rAF loop with time-accumulator (6 gen/s), dirty-cell redraw diffed against a `renderedState` array, `getComputedStyle` colors re-read on OS-theme change AND `.dark`/`.light` class mutations (shared `src/lib/theme-observer.ts`). Zero animation deps.
 - **Ornament engine** (`src/hooks/useGameOfLifePattern.ts` + `GameOfLifePatternBackground.tsx`): bounded non-toroidal engine per ornament; pulsar top-right on every portfolio section; IntersectionObserver pauses off-screen engines; `active` gating means no computation during the Intro.
 - **Landing hero** (`src/sections/About.tsx`): full-height editorial hero filling the viewport, left-anchored (never vertically centered — user decision): huge name, `RotatingTitle` cycling 4 domains (mounts only when portfolio-ready), location + bio pinned to the card's bottom edge via `mt-auto`. Reveals gated on portfolio-ready.
-- **Skills** (`src/sections/Skills.tsx` + `src/lib/skills.ts`): tech-stack icon tiles (react-icons/si, brand colors via `useResolvedTheme` light/dark hex pairs, hover lift) and abstract-skill pills (lucide icons), staggered `Reveal` entrances.
+- **Skills** (`src/sections/Skills.tsx`): placeholder — hero-style corner title + subtitle only; the template tech-stack/abstract-skills data was removed pending real content.
 - **Header** (`src/components/Header.tsx`): bar layout ≥`md` = labeled icon links pill (GitHub + Resume) + centered nav + `ThemeSwitch`, evenly distributed via flex `justify-between`; below `md` = floating labeled pill top-left + floating hamburger → right side panel. Icon SVGs in `public/icons/` (dark/light variants swapped via `useResolvedTheme`). GitHub href = `GITHUB_URL` (`https://github.com/JulienTAP`); resume currently downloads `public/template.txt` (placeholder) via the `download` attribute. Mounted only after the wipe (fade-in entrance). Active section tracked by IntersectionObserver.
 - **Three-state theme** (`src/components/ThemeSwitch.tsx`): light / dark / browser-preference, persisted to `localStorage('theme')`, applied pre-mount by an inline script in `index.html` (anti-FOUC). See [ADR-0002](docs/adr/0002-three-state-theme-switch.md).
 - **Footer** (`src/components/Footer.tsx`): only on Contact (pinned inside that section, which needs `relative`). Brand icons via **react-icons** (`FaGithub`, `FaLinkedin`, `FaInstagram`) — lucide v1+ ships no brand icons and Simple Icons dropped LinkedIn. Social hrefs are `#` placeholders.
@@ -81,7 +81,6 @@ src/
     useResolvedTheme.ts    # Effective light/dark across the three-state theme
   lib/
     game-of-life.ts  # Engine + PATTERNS + seedRandomPatterns (unused on startup, kept for later)
-    skills.ts        # TECH_STACK + ABSTRACT_SKILLS data
     theme-observer.ts # readFillColor + observeThemeColor (shared by both GOL hooks)
     utils.ts         # cn() helper
 public/
