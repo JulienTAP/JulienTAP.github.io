@@ -45,6 +45,43 @@ function IconLinks() {
   )
 }
 
+function PanelLinks() {
+  const theme = useResolvedTheme()
+  const githubIcon =
+    theme === 'dark'
+      ? '/icons/git-branch-white.svg'
+      : '/icons/git-branch-dark.svg'
+  const resumeIcon =
+    theme === 'dark' ? '/icons/download-white.svg' : '/icons/download-black.svg'
+
+  const linkClass =
+    'text-muted-foreground hover:text-foreground flex items-center gap-2.5 text-xl font-medium transition-colors'
+
+  return (
+    <div className="border-border/100 mt-8 flex flex-col gap-2 border-t pt-8">
+      <a
+        href={GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub profile"
+        className={linkClass}
+      >
+        <img src={githubIcon} alt="" className="size-4" />
+        GitHub
+      </a>
+      <a
+        href="/template.txt"
+        download="template.txt"
+        aria-label="Download resume"
+        className={linkClass}
+      >
+        <img src={resumeIcon} alt="" className="size-4" />
+        Resume
+      </a>
+    </div>
+  )
+}
+
 interface HeaderProps {
   readonly items: ReadonlyArray<NavItem>
 }
@@ -125,10 +162,6 @@ export function Header({ items }: HeaderProps) {
         </div>
       </header>
 
-      <div className="fixed top-3 left-4 z-50 md:hidden">
-        <IconLinks />
-      </div>
-
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
@@ -175,6 +208,7 @@ export function Header({ items }: HeaderProps) {
                 </a>
               ))}
             </nav>
+            <PanelLinks />
           </aside>
         </>
       )}
