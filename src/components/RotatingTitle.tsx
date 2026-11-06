@@ -1,18 +1,25 @@
+import { cn } from '@/lib/utils'
+
 interface RotatingTitleProps {
   readonly titles: ReadonlyArray<string>
   readonly intervalMs?: number
+  readonly className?: string
 }
 
 export function RotatingTitle({
   titles,
   intervalMs = 3000,
+  className,
 }: RotatingTitleProps) {
   const perTitle = intervalMs
   const duration = titles.length * perTitle
 
   return (
     <div
-      className="rotate-title-container relative h-8 overflow-hidden"
+      className={cn(
+        'rotate-title-container relative h-8 overflow-hidden',
+        className,
+      )}
       aria-label={titles[0]}
     >
       {titles.map((title, i) => (

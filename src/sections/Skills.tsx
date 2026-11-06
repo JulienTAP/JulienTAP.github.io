@@ -14,7 +14,7 @@ export function Skills() {
       <div className="w-full max-w-5xl px-2 py-10 sm:px-4 sm:py-16">
         <Reveal>
           <div>
-            <h2 className="text-foreground text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="text-foreground font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Skills
             </h2>
             <p className="text-muted-foreground mt-2 text-sm sm:text-base">

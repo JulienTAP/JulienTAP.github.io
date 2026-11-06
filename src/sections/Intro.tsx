@@ -67,7 +67,7 @@ export function Intro({ onFinish }: IntroProps) {
           Inspired by Conway&apos;s Game of Life
         </p>
 
-        <h1 className="text-foreground mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+        <h1 className="text-foreground font-display mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           Simple rules. Wild complexity.
         </h1>
 

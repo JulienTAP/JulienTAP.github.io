@@ -45,7 +45,7 @@ A full-viewport routing unit (`src/components/Section.tsx`: `h-svh snap-start sn
 - **App shell** (`src/App.tsx`): owns `introDone`; provides `PortfolioReadyContext`; mounts `Header` and unlocks `<main>` scrolling only after the wipe; `<main>` is `inert` during the Intro.
 - **Game of Life soup** (`src/lib/game-of-life.ts` + `src/hooks/useGameOfLife.ts` + `src/components/GameOfLifeBackground.tsx`): toroidal `Uint8Array` double-buffer engine, soup-seeded, rAF loop with time-accumulator (6 gen/s), dirty-cell redraw diffed against a `renderedState` array, `getComputedStyle` colors re-read on OS-theme change AND `.dark`/`.light` class mutations (shared `src/lib/theme-observer.ts`). Zero animation deps.
 - **Ornament engine** (`src/hooks/useGameOfLifePattern.ts` + `GameOfLifePatternBackground.tsx`): bounded non-toroidal engine per ornament; pulsar top-right on every portfolio section; IntersectionObserver pauses off-screen engines; `active` gating means no computation during the Intro.
-- **Landing hero** (`src/sections/About.tsx`): glass-card hero (badge "available", large name, `RotatingTitle` cycling 4 domains, location + bio placeholders), bottom-right glass "Scroll to explore" pill scrolling to `#skills`. Reveals gated on portfolio-ready.
+- **Landing hero** (`src/sections/About.tsx`): full-height editorial hero filling the viewport, left-anchored (never vertically centered — user decision): huge name, `RotatingTitle` cycling 4 domains (mounts only when portfolio-ready), location + bio pinned to the card's bottom edge via `mt-auto`. Reveals gated on portfolio-ready.
 - **Skills** (`src/sections/Skills.tsx` + `src/lib/skills.ts`): tech-stack icon tiles (react-icons/si, brand colors via `useResolvedTheme` light/dark hex pairs, hover lift) and abstract-skill pills (lucide icons), staggered `Reveal` entrances.
 - **Header** (`src/components/Header.tsx`): desktop = centered nav + `ThemeSwitch` right; mobile = floating hamburger → right side panel. Mounted only after the wipe (fade-in entrance). Active section tracked by IntersectionObserver.
 - **Three-state theme** (`src/components/ThemeSwitch.tsx`): light / dark / browser-preference, persisted to `localStorage('theme')`, applied pre-mount by an inline script in `index.html` (anti-FOUC). See [ADR-0002](docs/adr/0002-three-state-theme-switch.md).
@@ -54,6 +54,7 @@ A full-viewport routing unit (`src/components/Section.tsx`: `h-svh snap-start sn
 ## Stack
 
 - **Vite 8** + **React 19** + **TypeScript 6**
+- **Typography**: self-hosted **Archivo Black** (`public/fonts/`, single weight) as the display font for headings via the `font-display` utility (`--font-display` token); all other text keeps Tailwind's default sans stack
 - **Tailwind CSS v4** (via `@tailwindcss/vite` plugin, not PostCSS) + **shadcn/ui** (New York style)
 - **oxlint** for linting, **Prettier** for formatting (with `prettier-plugin-tailwindcss` for class sorting)
 - **pnpm 11** as package manager (pinned via `packageManager` field for Corepack)
