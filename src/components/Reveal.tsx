@@ -31,7 +31,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
           }
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
+      { threshold: 0.15 },
     )
 
     observer.observe(el)

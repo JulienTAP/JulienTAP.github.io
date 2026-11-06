@@ -22,7 +22,7 @@ export function GameOfLifePatternBackground({
       ref={canvasRef}
       aria-hidden="true"
       className={cn(
-        'pointer-events-none absolute top-20 right-8 -z-10',
+        'pointer-events-none absolute top-20 right-8 -z-10 hidden sm:block',
         className,
       )}
     />

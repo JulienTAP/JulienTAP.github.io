@@ -30,6 +30,17 @@ Do not commit code by yourself, user should handle commits and PRs alone.
 
 Dark mode supports three states: light, dark, or browser preference (the default). A `ThemeSwitch` in the header persists the choice to `localStorage`; an anti-FOUC script in `index.html` applies it before React mounts. The CSS uses `@media (prefers-color-scheme: dark) :root:not(.light)` for browser-preference mode, and `.dark` / `.light` classes for forced overrides. See [ADR-0002](docs/adr/0002-three-state-theme-switch.md) (supersedes [ADR-0001](docs/adr/0001-auto-dark-mode.md)).
 
+## Live preview
+
+Playwright MCP is configured in `opencode.json` (headless Chrome, isolated profile). It gives the agent a real browser to visually verify and interact with the site. Use it after any UI change:
+
+- Start the dev server in the background (`pnpm dev`), then `browser_navigate` to `http://localhost:5173` — HMR keeps it live.
+- Verify rendering with `browser_take_screenshot` and `browser_snapshot` (accessibility tree).
+- Check responsiveness with `browser_resize`: 390x844 (iPhone), 768x1024 (iPad), 1280x800 (desktop).
+- Test all three theme states: `browser_emulate_media` for `prefers-color-scheme: dark`/`light` (browser-preference mode), and click the `ThemeSwitch` for forced overrides — the isolated profile starts with a clean `localStorage`.
+- Click through nav, anchors, and forms with `browser_click` / `browser_fill_form` to confirm interactions work.
+- Check `browser_console_messages` for runtime errors before finishing.
+
 ## Deploy
 
 Merge to `main` triggers `.github/workflows/deploy.yml` → build → GitHub Pages. The `dev` branch is the working branch; merge `dev` → `main` to publish. This is a **user page** repo (`<username>.github.io`), so `base: '/'` in `vite.config.ts` is correct — don't change it to a project path.

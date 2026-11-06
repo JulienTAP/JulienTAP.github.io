@@ -49,7 +49,7 @@ export function Intro({ onFinish }: IntroProps) {
       aria-label="Introduction"
       onTransitionEnd={handleTransitionEnd}
       className={cn(
-        'bg-background intro-wipe fixed inset-0 z-50 flex items-center justify-center overflow-hidden',
+        'bg-background intro-wipe fixed inset-0 z-50 flex items-center justify-center overflow-hidden px-4',
         leaving && 'intro-wipe-leaving',
       )}
     >
@@ -67,7 +67,7 @@ export function Intro({ onFinish }: IntroProps) {
           Inspired by Conway&apos;s Game of Life
         </p>
 
-        <h1 className="text-foreground mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+        <h1 className="text-foreground font-display mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           Simple rules. Wild complexity.
         </h1>
 
