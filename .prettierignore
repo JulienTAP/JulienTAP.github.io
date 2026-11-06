@@ -6,4 +6,5 @@ pnpm-lock.yaml
 public
 .agents
 .opencode
+.playwright-mcp
 skills-lock.json

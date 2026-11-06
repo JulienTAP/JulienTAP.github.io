@@ -33,7 +33,7 @@ The `PortfolioReadyContext` boolean (default `true`, set from App's `introDone` 
 _Avoid_: introDone flag, ready state
 
 **Ornament engine**:
-The scoped, bounded Game of Life renderer (`src/hooks/useGameOfLifePattern.ts` + `GameOfLifePatternBackground`): a small non-toroidal engine sized to one pattern + padding, stamped once, stepped forever at ~3 gen/s. Pauses via IntersectionObserver when its section is off-screen. Currently one pulsar top-right per portfolio section; per-section pattern/position configs come later.
+The scoped, bounded Game of Life renderer (`src/hooks/useGameOfLifePattern.ts` + `GameOfLifePatternBackground`): a small non-toroidal engine sized to one pattern + padding, stamped once, stepped forever at ~3 gen/s. Pauses via IntersectionObserver when its section is off-screen and sleeps (`active` gate) until the portfolio is ready. Hidden below `sm` — on phones the pattern dominated 65% of the viewport and collided with content, so mobile keeps a plain background. Currently one pulsar top-right per portfolio section; per-section pattern/position configs come later.
 _Avoid_: static background, mini game
 
 **Section**:

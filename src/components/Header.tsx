@@ -116,7 +116,7 @@ export function Header({ items }: HeaderProps) {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="mt-8 flex flex-col gap-2">
+            <nav className="mt-10 flex flex-col gap-4">
               {items.map((item) => (
                 <a
                   key={item.id}
@@ -126,7 +126,7 @@ export function Header({ items }: HeaderProps) {
                     handleMobileNav(item.id)
                   }}
                   className={cn(
-                    'text-2xl font-semibold tracking-tight transition-colors',
+                    'text-3xl font-semibold tracking-tight transition-colors',
                     'text-muted-foreground hover:text-foreground',
                     activeId === item.id && 'text-foreground',
                   )}
