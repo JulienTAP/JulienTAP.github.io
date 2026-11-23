@@ -49,7 +49,8 @@ A full-viewport routing unit (`src/components/Section.tsx`: `h-svh snap-start sn
 - **Skills** (`src/sections/Skills.tsx`): placeholder — hero-style corner title + subtitle only; the template tech-stack/abstract-skills data was removed pending real content.
 - **Header** (`src/components/Header.tsx`): bar layout ≥`md` = labeled icon links pill (GitHub + Resume) + centered nav + `ThemeSwitch`, evenly distributed via flex `justify-between`; below `md` = floating hamburger → right side panel with `ThemeSwitch`, nav routes in big text, and the labeled GitHub/Resume links (`PanelLinks`) under the navigation. Icon SVGs in `public/icons/` (dark/light variants swapped via `useResolvedTheme`). GitHub href = `GITHUB_URL` (`https://github.com/JulienTAP`); resume currently downloads `public/template.txt` (placeholder) via the `download` attribute. Mounted only after the wipe (fade-in entrance). Active section tracked by IntersectionObserver.
 - **Three-state theme** (`src/components/ThemeSwitch.tsx`): light / dark / browser-preference, persisted to `localStorage('theme')`, applied pre-mount by an inline script in `index.html` (anti-FOUC). See [ADR-0002](docs/adr/0002-three-state-theme-switch.md).
-- **Footer** (`src/components/Footer.tsx`): only on Contact (pinned inside that section, which needs `relative`). Brand icons via **react-icons** (`FaGithub`, `FaLinkedin`, `FaInstagram`) — lucide v1+ ships no brand icons and Simple Icons dropped LinkedIn. Social hrefs are `#` placeholders.
+- **Contact** (`src/sections/Contact.tsx` + `src/lib/contact.ts`): glass form card (Name/Email side-by-side, message, native `required` validation) that composes a **mailto draft** to `CONTACT_EMAIL` on submit — no backend; the email row has a copy-to-clipboard fallback; "Reach me directly" column lists email + GitHub/LinkedIn/Instagram rows (LinkedIn/Instagram hrefs are `#` placeholders). `CONTACT_EMAIL` (`contact@julientap.dev`) and the social hrefs in `src/lib/contact.ts` are placeholders to replace with real data.
+- **Footer** (`src/components/Footer.tsx`): only on Contact — copyright + "made with ❤" line; socials moved to the Contact "Reach me directly" column.
 
 ## Stack
 
@@ -81,6 +82,7 @@ src/
     useResolvedTheme.ts    # Effective light/dark across the three-state theme
   lib/
     game-of-life.ts  # Engine + PATTERNS + seedRandomPatterns (unused on startup, kept for later)
+    contact.ts       # CONTACT_EMAIL + GITHUB_URL + CONTACT_CHANNELS (placeholders)
     theme-observer.ts # readFillColor + observeThemeColor (shared by both GOL hooks)
     utils.ts         # cn() helper
 public/

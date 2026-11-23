@@ -3,13 +3,12 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ThemeSwitch } from '@/components/ThemeSwitch'
 import { useResolvedTheme } from '@/hooks/useResolvedTheme'
+import { GITHUB_URL } from '@/lib/contact'
 
 export interface NavItem {
   readonly id: string
   readonly label: string
 }
-
-const GITHUB_URL = 'https://github.com/JulienTAP'
 
 function IconLinks() {
   const theme = useResolvedTheme()
