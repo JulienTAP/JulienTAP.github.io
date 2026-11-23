@@ -3,10 +3,11 @@ import {
   createGameOfLife,
   type GameOfLifeEngine,
   type PatternName,
+  type StepMode,
 } from '@/lib/game-of-life'
 import { observeThemeColor, readFillColor } from '@/lib/theme-observer'
 
-export type { PatternName }
+export type { PatternName, StepMode }
 
 export interface UseGameOfLifeOptions {
   cellSize?: number
@@ -14,6 +15,7 @@ export interface UseGameOfLifeOptions {
   colorVar?: string
   alpha?: number
   soupDensity?: number
+  stepMode?: StepMode
 }
 
 export interface UseGameOfLifeResult {
@@ -38,7 +40,14 @@ export function useGameOfLife(
     colorVar = DEFAULT_COLOR_VAR,
     alpha = DEFAULT_ALPHA,
     soupDensity = DEFAULT_SOUP_DENSITY,
+    stepMode = 'conway',
   } = opts
+
+  const stepModeRef = useRef<StepMode>(stepMode)
+
+  useEffect(() => {
+    stepModeRef.current = stepMode
+  }, [stepMode])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -130,7 +139,7 @@ export function useGameOfLife(
       accumulator += delta
 
       while (accumulator >= tickIntervalMs) {
-        engine.step()
+        engine.step(stepModeRef.current)
         accumulator -= tickIntervalMs
       }
 

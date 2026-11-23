@@ -1,12 +1,19 @@
-import { useGameOfLife } from '@/hooks/useGameOfLife'
+import { useGameOfLife, type StepMode } from '@/hooks/useGameOfLife'
 
-export function GameOfLifeBackground() {
+interface GameOfLifeBackgroundProps {
+  readonly stepMode?: StepMode
+}
+
+export function GameOfLifeBackground({
+  stepMode = 'conway',
+}: GameOfLifeBackgroundProps) {
   const { canvasRef } = useGameOfLife({
     cellSize: 12,
-    tickIntervalMs: 167,
+    tickIntervalMs: 100,
     colorVar: '--muted-foreground',
-    alpha: 0.4,
+    alpha: 0.35,
     soupDensity: 0.2,
+    stepMode,
   })
 
   return (

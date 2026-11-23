@@ -1,5 +1,7 @@
 export type Cell = 0 | 1
 
+export type StepMode = 'conway' | 'stabilize' | 'erode' | 'extinguish'
+
 export interface GameOfLifeOptions {
   cols: number
   rows: number
@@ -7,7 +9,7 @@ export interface GameOfLifeOptions {
 }
 
 export interface GameOfLifeEngine {
-  step(): void
+  step(mode?: StepMode): void
   resize(cols: number, rows: number): void
   reseed(density: number): void
   stampPattern(
@@ -80,19 +82,32 @@ export function createGameOfLife(opts: GameOfLifeOptions): GameOfLifeEngine {
     return pop
   }
 
-  const step = (): void => {
+  const step = (mode: StepMode = 'conway'): void => {
     const buf = previous
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        const neighbors = countNeighbors(x, y)
-        const alive = current[idx(x, y)] === 1
-        let next: Cell = 0
-        if (alive && (neighbors === 2 || neighbors === 3)) {
-          next = 1
-        } else if (!alive && neighbors === 3) {
-          next = 1
+    if (mode === 'extinguish') {
+      buf.fill(0)
+    } else {
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const neighbors = countNeighbors(x, y)
+          const alive = current[idx(x, y)] === 1
+          let next: Cell = 0
+          if (mode === 'conway') {
+            if (
+              (alive && (neighbors === 2 || neighbors === 3)) ||
+              (!alive && neighbors === 3)
+            ) {
+              next = 1
+            }
+          } else if (mode === 'stabilize') {
+            if (alive && (neighbors === 2 || neighbors === 3)) {
+              next = 1
+            }
+          } else if (alive && neighbors === 3) {
+            next = 1
+          }
+          buf[idx(x, y)] = next
         }
-        buf[idx(x, y)] = next
       }
     }
     const tmp = current

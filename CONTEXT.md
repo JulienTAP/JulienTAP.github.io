@@ -21,12 +21,8 @@ The random initial population of the Game of Life canvas on the **Intro** page (
 _Avoid_: random seed, initial state
 
 **Intro**:
-The gated landing overlay (`src/sections/Intro.tsx`): full-screen soup canvas + centered glass card presenting the Conway inspiration and the "clean up the mess" pitch. Plays on every page load. It is a fixed overlay above the portfolio — the portfolio renders underneath but is inert (`<main inert>`), scroll-locked, and fully hidden until the **wipe** completes.
+The brief landing overlay (`src/sections/Intro.tsx`): full-screen soup canvas with no text or CTA. Plays on every page load (~1.65s total, skipped immediately under `prefers-reduced-motion: reduce`), then automatically simplifies via cellular-automaton decay (`conway` → `stabilize` B∅/S23 → `erode` B∅/S3 → `extinguish` B∅/S∅) until the grid clears to empty background, unmounting the overlay and unlocking the portfolio underneath.
 _Avoid_: landing page, splash screen
-
-**Wipe**:
-The curtain-lift transition from Intro to portfolio (`.intro-wipe` in `src/index.css`): card fades/lifts, then a `clip-path: inset()` transition raises the overlay's bottom edge upward. `onFinish` fires on `transitionend` (fallback timeout for reduced-motion) → the overlay unmounts, destroying the soup engine (no GOL computation afterward), and `introDone` flips.
-_Avoid_: fade, scroll transition
 
 **Portfolio-ready**:
 The `PortfolioReadyContext` boolean (default `true`, set from App's `introDone` state). `Reveal` won't observe or reveal anything while it's `false`; `RotatingTitle` mounts only when ready; `GameOfLifePatternBackground` passes it as `active` so ornament engines don't run during the Intro.
@@ -41,7 +37,7 @@ A full-viewport routing unit (`src/components/Section.tsx`: `h-svh snap-start sn
 
 ## What's built
 
-- **Intro gate** (`src/sections/Intro.tsx`): fixed overlay with the animated soup (existing `useGameOfLife`), centered glass card (Conway inspiration, mess metaphor, "Let's clean that" CTA) and the **wipe** to enter. Unmounting destroys the soup engine.
+- **Intro** (`src/sections/Intro.tsx`): fixed overlay with the animated soup (`useGameOfLife`) that runs for ~1s then self-simplifies through cellular automaton decay (`stabilize` → `erode` → `extinguish`) and unmounts at ~1.65s, destroying the soup engine and revealing the portfolio.
 - **App shell** (`src/App.tsx`): owns `introDone`; provides `PortfolioReadyContext`; mounts `Header` and unlocks `<main>` scrolling only after the wipe; `<main>` is `inert` during the Intro.
 - **Game of Life soup** (`src/lib/game-of-life.ts` + `src/hooks/useGameOfLife.ts` + `src/components/GameOfLifeBackground.tsx`): toroidal `Uint8Array` double-buffer engine, soup-seeded, rAF loop with time-accumulator (6 gen/s), dirty-cell redraw diffed against a `renderedState` array, `getComputedStyle` colors re-read on OS-theme change AND `.dark`/`.light` class mutations (shared `src/lib/theme-observer.ts`). Zero animation deps.
 - **Ornament engine** (`src/hooks/useGameOfLifePattern.ts` + `GameOfLifePatternBackground.tsx`): bounded non-toroidal engine per ornament; pulsar top-right on every portfolio section; IntersectionObserver pauses off-screen engines; `active` gating means no computation during the Intro.
