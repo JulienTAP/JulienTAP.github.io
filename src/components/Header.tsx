@@ -32,8 +32,8 @@ function IconLinks() {
         <span>GitHub</span>
       </a>
       <a
-        href="/template.txt"
-        download="template.txt"
+        href="/resume/out/CV-EN-JulienTAP.pdf"
+        download="CV-EN-JulienTAP.pdf"
         aria-label="Download resume"
         className="flex h-7 items-center gap-1.5 rounded-sm px-2 text-xs font-medium opacity-70 transition-opacity hover:opacity-100"
       >
@@ -69,8 +69,8 @@ function PanelLinks() {
         GitHub
       </a>
       <a
-        href="/template.txt"
-        download="template.txt"
+        href="/resume/out/CV-EN-JulienTAP.pdf"
+        download="CV-EN-JulienTAP.pdf"
         aria-label="Download resume"
         className={linkClass}
       >
