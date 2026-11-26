@@ -54,9 +54,9 @@ export function Contact() {
   return (
     <Section
       id="contact"
-      className="relative isolate h-auto min-h-svh items-start justify-start px-6 pt-20 pb-6 sm:px-12 sm:pb-8 lg:h-svh"
+      className="relative isolate h-auto min-h-svh items-start justify-start px-0 pt-20 pb-0 sm:px-0 sm:pb-0 lg:h-svh"
     >
-      <div className="flex w-full flex-1 flex-col px-2 sm:px-4">
+      <div className="flex w-full flex-1 flex-col px-8 sm:px-16">
         <Reveal>
           <div className="p-3 sm:p-4">
             <h2 className="text-foreground font-display text-4xl font-bold tracking-tight text-shadow-sm sm:text-7xl lg:text-8xl">
@@ -225,11 +225,9 @@ export function Contact() {
             </Reveal>
           </div>
         </div>
-
-        <div className="mt-auto w-full px-3 sm:px-4">
-          <Footer />
-        </div>
       </div>
+
+      <Footer />
     </Section>
   )
 }
