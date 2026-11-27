@@ -52,31 +52,26 @@ export function Contact() {
   const socials = CONTACT_CHANNELS.filter((c) => c.id !== 'email')
 
   return (
-    <Section
-      id="contact"
-      className="relative isolate h-auto min-h-svh items-start justify-start px-0 pt-20 pb-0 sm:px-0 sm:pb-0 lg:h-svh"
-    >
-      <div className="flex w-full flex-1 flex-col px-8 sm:px-16">
+    <Section id="contact" className="px-0 pb-0 sm:px-0 md:px-0 md:pb-0 lg:px-0">
+      <div className="flex min-h-0 w-full flex-1 flex-col px-5 sm:px-10 md:px-12 lg:px-16">
         <Reveal>
-          <div className="p-3 sm:p-4">
-            <h2 className="text-foreground font-display text-4xl font-bold tracking-tight text-shadow-sm sm:text-7xl lg:text-8xl">
-              Contact
-            </h2>
-            <p className="text-muted-foreground mt-2 text-sm sm:mt-3 sm:text-base">
-              Have a project, an opportunity, or a question? Let&apos;s talk.
-            </p>
-          </div>
+          <h2 className="text-foreground font-display text-4xl font-bold tracking-tight text-shadow-sm sm:text-7xl lg:text-8xl">
+            Contact
+          </h2>
+          <p className="text-muted-foreground mt-1.5 text-sm sm:mt-3 sm:text-base">
+            Have a project, an opportunity, or a question? Let&apos;s talk.
+          </p>
         </Reveal>
 
-        <div className="my-auto flex w-full flex-1 items-center justify-center px-3 py-4 sm:px-4 sm:py-6">
-          <div className="grid w-full max-w-5xl grid-cols-1 items-stretch gap-5 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
+        <div className="my-auto flex min-h-0 w-full flex-1 items-center justify-center py-2 sm:py-4">
+          <div className="grid w-full max-w-5xl grid-cols-1 items-stretch gap-3 sm:gap-5 lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
             <Reveal delay={100} className="flex flex-col">
-              <div className="bg-card/60 border-border/60 flex h-full w-full flex-1 flex-col justify-between gap-5 rounded-2xl border p-4 shadow-sm sm:p-6 lg:p-8">
+              <div className="bg-card/60 border-border/60 flex h-full w-full flex-1 flex-col justify-between gap-3 rounded-2xl border p-3 shadow-sm sm:gap-5 sm:p-6 lg:p-8">
                 <div>
                   <p className="text-muted-foreground mb-2.5 hidden text-xs font-semibold tracking-widest uppercase lg:block">
                     Direct
                   </p>
-                  <div className="bg-background/60 border-border/60 hover:border-border flex items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors sm:px-4 sm:py-3 lg:py-3.5">
+                  <div className="bg-background/60 border-border/60 hover:border-border flex items-center gap-3 rounded-xl border px-3 py-2 transition-colors sm:px-4 sm:py-3 lg:py-3.5">
                     <a
                       href={emailChannel?.href}
                       className="group flex min-w-0 flex-1 items-center gap-3"
@@ -127,7 +122,7 @@ export function Contact() {
                           {...(external
                             ? { target: '_blank', rel: 'noopener noreferrer' }
                             : {})}
-                          className="group bg-background/60 border-border/60 hover:border-border hover:bg-muted/50 flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2.5 transition-colors lg:flex-row lg:justify-start lg:gap-3 lg:px-4 lg:py-3"
+                          className="group bg-background/60 border-border/60 hover:border-border hover:bg-muted/50 flex flex-col items-center justify-center gap-1 rounded-xl border px-2 py-2 transition-colors sm:py-2.5 lg:flex-row lg:justify-start lg:gap-3 lg:px-4 lg:py-3"
                         >
                           <Icon className="text-muted-foreground group-hover:text-foreground size-4 shrink-0 transition-colors" />
                           <span className="text-foreground truncate text-xs font-medium sm:text-sm lg:flex-1">
@@ -151,13 +146,13 @@ export function Contact() {
             <Reveal delay={180} className="flex flex-col">
               <form
                 onSubmit={handleSubmit}
-                className="bg-card/60 border-border/60 flex h-full w-full flex-1 flex-col gap-4 rounded-2xl border p-4 shadow-sm sm:gap-5 sm:p-6 lg:p-8"
+                className="bg-card/60 border-border/60 flex h-full w-full flex-1 flex-col gap-2.5 rounded-2xl border p-3.5 shadow-sm sm:gap-5 sm:p-6 lg:p-8"
               >
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
                   <div>
                     <label
                       htmlFor="contact-name"
-                      className="text-muted-foreground mb-2 block text-xs font-medium sm:text-sm"
+                      className="text-muted-foreground mb-1 block text-xs font-medium sm:mb-2 sm:text-sm"
                     >
                       Name
                     </label>
@@ -167,13 +162,13 @@ export function Contact() {
                       required
                       autoComplete="name"
                       placeholder="Your name"
-                      className="bg-background/60 h-10"
+                      className="bg-background/60 h-9 sm:h-10"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="contact-email"
-                      className="text-muted-foreground mb-2 block text-xs font-medium sm:text-sm"
+                      className="text-muted-foreground mb-1 block text-xs font-medium sm:mb-2 sm:text-sm"
                     >
                       Email
                     </label>
@@ -184,7 +179,7 @@ export function Contact() {
                       required
                       autoComplete="email"
                       placeholder="you@example.com"
-                      className="bg-background/60 h-10"
+                      className="bg-background/60 h-9 sm:h-10"
                     />
                   </div>
                 </div>
@@ -192,7 +187,7 @@ export function Contact() {
                 <div className="flex flex-1 flex-col">
                   <label
                     htmlFor="contact-message"
-                    className="text-muted-foreground mb-2 block text-xs font-medium sm:text-sm"
+                    className="text-muted-foreground mb-1 block text-xs font-medium sm:mb-2 sm:text-sm"
                   >
                     Message
                   </label>
@@ -201,11 +196,11 @@ export function Contact() {
                     name="message"
                     required
                     placeholder="What can I help you with?"
-                    className="bg-background/60 field-sizing-fixed min-h-28 flex-1 resize-none sm:min-h-32"
+                    className="bg-background/60 field-sizing-fixed min-h-20 flex-1 resize-none sm:min-h-32"
                   />
                 </div>
 
-                <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-2 pt-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-1">
                   {sent && (
                     <span className="text-muted-foreground flex items-center justify-center gap-1.5 text-xs sm:justify-start sm:text-sm">
                       <Check className="size-4 text-emerald-500" />
@@ -215,7 +210,7 @@ export function Contact() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full gap-2 sm:ml-auto sm:w-auto sm:px-8"
+                    className="h-9 w-full gap-2 sm:ml-auto sm:h-10 sm:w-auto sm:px-8"
                   >
                     Send message
                     <Send className="size-4" />

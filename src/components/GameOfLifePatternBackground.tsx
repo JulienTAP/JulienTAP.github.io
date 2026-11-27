@@ -7,15 +7,27 @@ import {
 
 interface GameOfLifePatternBackgroundProps {
   readonly pattern?: PatternName
+  readonly cellSize?: number
+  readonly padding?: number
+  readonly alpha?: number
   readonly className?: string
 }
 
 export function GameOfLifePatternBackground({
   pattern = 'pulsar',
+  cellSize,
+  padding,
+  alpha,
   className,
 }: GameOfLifePatternBackgroundProps) {
   const ready = usePortfolioReady()
-  const { canvasRef } = useGameOfLifePattern({ pattern, active: ready })
+  const { canvasRef } = useGameOfLifePattern({
+    pattern,
+    cellSize,
+    padding,
+    alpha,
+    active: ready,
+  })
 
   return (
     <canvas
